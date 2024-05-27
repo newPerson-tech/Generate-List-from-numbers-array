@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate List</title>
+  </head>
+  <body>
+    <div id="list-container"></div>
+
+    <script>
+      function generateList(array) {
+        // Creating main List element
+        const ul = document.createElement("ul");
+
+        array.forEach((item) => {
+          const li = document.createElement("li");
+
+          if (Array.isArray(item)) {
+            // If an item - one more array, then calling generateList again
+            li.appendChild(generateList(item));
+          } else {
+            // Otherwise displaying on the page
+            li.textContent = item;
+          }
+
+          ul.appendChild(li);
+        });
+
+        return ul;
+      }
+
+      const data1 = [1, 2, 3];
+      const data2 = [1, 2, [1.1, 1.2, 1.3], 3];
+
+      const list1 = generateList(data1);
+      const list2 = generateList(data2);
+
+      const container = document.getElementById("list-container");
+      container.appendChild(list1);
+      container.appendChild(list2);
+    </script>
+  </body>
+</html>
